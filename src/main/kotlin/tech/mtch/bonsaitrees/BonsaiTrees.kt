@@ -313,7 +313,7 @@ class BonsaiTrees : JavaPlugin(), Listener {
         newMap[conMat(Material.SPRUCE_LOG)] = 0.5
         newMap[conMat(Material.SPRUCE_LEAVES)] = 0.1
         newMap[conMat(Material.SPRUCE_SAPLING)] = 0.1
-        defMap[conMat(Material.POTTED_JUNGLE_SAPLING)] = newMap
+        defMap[conMat(Material.POTTED_SPRUCE_SAPLING)] = newMap
 
         // Jungle Sapling, has a better chance at creating logs
         newMap = HashMap()
