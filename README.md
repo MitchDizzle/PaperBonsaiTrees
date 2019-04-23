@@ -1,7 +1,7 @@
 # PaperBonsaiTrees
 A Minecraft server plugin port of the BonsaiTrees mod
 
-![](https://i.gyazo.com/e10f57ff2371b8e1d6fd823eabd229fb.gif)
+![](/.github/preview.gif)
 
 ## Config:
 ```yml
