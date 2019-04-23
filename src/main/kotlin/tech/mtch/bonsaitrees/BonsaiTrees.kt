@@ -39,15 +39,10 @@ class BonsaiTrees : JavaPlugin(), Listener {
 
     private var canUseHolograms = false
 
-    private fun conMat(mat: Material): String {
-        return mat.toString()
-    }
-
     override fun onEnable() {
         canUseHolograms = Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")
 
         addToDefaultConfig()
-        reloadConfig()
 
         growthMaxPerSecond = config.get("growthMaxPerSecond") as Double
         growthMinPerSecond = config.get("growthMinPerSecond") as Double
@@ -70,9 +65,7 @@ class BonsaiTrees : JavaPlugin(), Listener {
             onFlowerPotTick()
         }, 0L, 20L)
 
-        // Load the chunks on late load or something.
-        // This can lag the server searching all blocks in a chunk so we do it with a async task.
-
+        //Late load compatibility, if this is a normal load it should only find one loaded chunk.
         for(world in Bukkit.getWorlds()) {
             for(chunk in world.loadedChunks) {
                 findPotsInTileEntities(chunk.tileEntities)
@@ -92,26 +85,26 @@ class BonsaiTrees : JavaPlugin(), Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     fun onPluginEnabled(event: PluginEnableEvent) {
         if(event.plugin.name == "HolographicDisplays") {
             canUseHolograms = true
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     fun onPluginDisabled(event: PluginDisableEvent) {
         if(event.plugin.name == "HolographicDisplays") {
             canUseHolograms = false
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     fun onChunkLoaded(event: ChunkLoadEvent) {
         findPotsInTileEntities(event.chunk.tileEntities)
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     fun onChunkUnload(event: ChunkUnloadEvent) {
         val chunk = event.chunk
         val world = event.world
@@ -123,7 +116,7 @@ class BonsaiTrees : JavaPlugin(), Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     fun onBlockPlace(event: BlockPlaceEvent) {
         val bl = event.blockPlaced
         if(validMaterials.containsKey(bl.type)) {
@@ -133,7 +126,7 @@ class BonsaiTrees : JavaPlugin(), Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     fun onBlockBreak(event: BlockBreakEvent) {
         val bl = event.block
         if(flowerPots.containsKey(bl)) {
@@ -158,7 +151,6 @@ class BonsaiTrees : JavaPlugin(), Listener {
                 if(item is ItemStack && item.type == Material.BONE_MEAL) {
                     val pot = flowerPots[bl]
                     if(pot is Pot) {
-                        //Weird cast check to make sure the return value of the block is a double.
                         flowerPotSetPercent(bl, pot.percent + bonemealIncreasePercent)
                         if(item.amount > 1) {
                             item.amount -= 1
@@ -166,7 +158,6 @@ class BonsaiTrees : JavaPlugin(), Listener {
                             player.inventory.remove(item)
                         }
                         event.setUseItemInHand(Event.Result.ALLOW)
-                        //event.player.sendMessage(String.format("%s growth: %.0f%%", blType.toString(), percent))
                     }
                 }
                 event.isCancelled = true
@@ -266,22 +257,6 @@ class BonsaiTrees : JavaPlugin(), Listener {
         }
     }
 
-    //How it was done previously.
-    /*private fun findPotsInChunk(chunk: Chunk) {
-        val maxY = chunk.world.maxHeight-1
-        for(x in 0..15) {
-            for(y in 0..maxY) {
-                for(z in 0..15) {
-                    val bl = chunk.getBlock(x, y, z)
-                    if(bl.type != Material.AIR && !flowerPots.containsKey(bl) && validMaterials.containsKey(bl.type)) {
-                        //Block is not Air, not already in the map, and is within the config.
-                        flowerPots[bl] = Pot()
-                    }
-                }
-            }
-        }
-    }*/
-
     private class Pot {
         var percent: Double = 0.0
         var hologram: Hologram? = null
@@ -361,5 +336,10 @@ class BonsaiTrees : JavaPlugin(), Listener {
         config.options().copyDefaults(true)
         saveConfig()
         defMap.clear()
+        reloadConfig()
+    }
+
+    private fun conMat(mat: Material): String {
+        return mat.toString()
     }
 }
