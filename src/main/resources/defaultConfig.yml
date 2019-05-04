@@ -1,0 +1,85 @@
+potConfig:
+  POTTED_OAK_SAPLING:
+    display: "Oak Tree"
+    growthMaxPerIter: 20.0
+    growthMinPerIter: 10.0
+    bonemealIncreasePercent: 100.0
+    drops:
+      STICK: 0.1
+      APPLE: 0.2
+      OAK_LOG: 0.5
+      OAK_LEAVES: 0.1
+      OAK_SAPLING: 0.1
+  POTTED_BIRCH_SAPLING:
+    display: "Birch Tree"
+    growthMaxPerIter: 20.0
+    growthMinPerIter: 10.0
+    bonemealIncreasePercent: 100.0
+    drops:
+      STICK: 0.1
+      BIRCH_LOG: 0.5
+      BIRCH_LEAVES: 0.1
+      BIRCH_SAPLING: 0.1
+  POTTED_JUNGLE_SAPLING:
+    display: "Jungle Tree"
+    growthMaxPerIter: 20.0
+    growthMinPerIter: 10.0
+    bonemealIncreasePercent: 100.0
+    drops:
+      STICK: 0.1
+      JUNGLE_LOG: 0.65
+      JUNGLE_LEAVES: 0.1
+      JUNGLE_SAPLING: 0.1
+  POTTED_SPRUCE_SAPLING:
+    display: "Spruce Tree"
+    growthMaxPerIter: 20.0
+    growthMinPerIter: 10.0
+    bonemealIncreasePercent: 100.0
+    drops:
+      STICK: 0.1
+      SPRUCE_LOG: 0.5
+      SPRUCE_LEAVES: 0.1
+      SPRUCE_SAPLING: 0.1
+  POTTED_DARK_OAK_SAPLING:
+    display: "Dark Oak Tree"
+    growthMaxPerIter: 20.0
+    growthMinPerIter: 10.0
+    bonemealIncreasePercent: 100.0
+    drops:
+      STICK: 0.1
+      APPLE: 0.1
+      DARK_OAK_LOG: 0.6
+      DARK_OAK_LEAVES: 0.1
+      DARK_OAK_SAPLING: 0.1
+  POTTED_ACACIA_SAPLING:
+    display: "Acacia Tree"
+    growthMaxPerIter: 20.0
+    growthMinPerIter: 10.0
+    bonemealIncreasePercent: 100.0
+    drops:
+      STICK: 0.1
+      ACACIA_LOG: 0.5
+      ACACIA_LEAVES: 0.1
+      ACACIA_SAPLING: 0.1
+  POTTED_DEAD_BUSH:
+    display: "Dead Bush"
+    growthMaxPerIter: 20.0
+    growthMinPerIter: 10.0
+    bonemealIncreasePercent: 0.0
+    drops:
+      STICK: 0.2
+      DEAD_BUSH: 0.1
+      SAND: 0.4
+  POTTED_CACTUS:
+    display: "Cactus"
+    growthMaxPerIter: 20.0
+    growthMinPerIter: 10.0
+    bonemealIncreasePercent: 100.0
+    drops:
+      SAND: 0.2
+      CACTUS: 0.7
+      GREEN_DYE: 0.1
+# Every 2.5 seconds we update all registered pots
+iterTicks: 50.0
+# Every iteration 
+showGrowthPercent: true
